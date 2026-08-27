@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useCallback, useEffect, useRef } from 'react'
 import type { KeyboardEvent, PointerEvent } from 'react'
 import { SiteFooter } from '../components/legal-page'
+import { seo } from '../lib/seo'
 
 const screenshots = [
   {
@@ -83,21 +84,11 @@ const destinations = {
 }
 
 export const Route = createFileRoute('/')({
-  head: () => ({
-    meta: [
-      { title: 'Tomeio — Your books, all together' },
-      {
-        name: 'description',
-        content: 'Discover, download, organize, and enjoy books from extensible sources with Tomeio.',
-      },
-      { property: 'og:title', content: 'Tomeio — Your books, all together' },
-      {
-        property: 'og:description',
-        content: 'Discover, download, organize, and enjoy books from extensible sources.',
-      },
-      { property: 'og:type', content: 'website' },
-      { name: 'twitter:card', content: 'summary' },
-    ],
+  head: () => seo({
+    title: 'Tomeio — Your books, all together',
+    description: 'Discover, download, organize, and enjoy books from extensible sources with Tomeio.',
+    socialDescription: 'Discover, download, organize, and enjoy books from extensible sources.',
+    path: '/',
   }),
   component: HomePage,
 })

@@ -1,4 +1,5 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { socialImages } from '../lib/seo'
 import appCss from '../styles/app.css?url'
 
 export const Route = createRootRoute({
@@ -22,6 +23,12 @@ function RootComponent() {
     <html lang="en">
       <head>
         <HeadContent />
+        <meta property="og:image" content={socialImages.small.url} />
+        <meta property="og:image:secure_url" content={socialImages.small.url} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content={String(socialImages.small.width)} />
+        <meta property="og:image:height" content={String(socialImages.small.height)} />
+        <meta property="og:image:alt" content={socialImages.small.alt} />
       </head>
       <body>
         <Outlet />

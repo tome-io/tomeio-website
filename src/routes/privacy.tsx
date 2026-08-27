@@ -1,16 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { LegalPage } from '../components/legal-page'
+import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/privacy')({
-  head: () => ({
-    meta: [
-      { title: 'Privacy Policy — Tomeio' },
-      {
-        name: 'description',
-        content: 'How Tomeio handles local library data, reading progress, sync, and extensions.',
-      },
-      { name: 'robots', content: 'index, follow' },
-    ],
+  head: () => seo({
+    title: 'Privacy Policy — Tomeio',
+    description: 'How Tomeio handles local library data, reading progress, sync, and extensions.',
+    path: '/privacy',
   }),
   component: PrivacyPage,
 })
