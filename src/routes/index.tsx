@@ -101,8 +101,10 @@ function HomePage() {
         <img className="app-logo" src="/logo.png" alt="Tomeio" />
         <h1 id="hero-title">Tomeio</h1>
         <p>
-          Discover, download, and keep your books together. Tomeio brings open book sources,
-          your reading list, and your local library into one calm place.
+          Discover, download, and keep your books together.
+          <br />
+          Tomeio brings open book sources, your reading list, and your local library into one calm
+          place.
         </p>
         <div className="actions" aria-label="Join the Tomeio beta and community">
           <DestinationLink href={destinations.testflight} label="Join TestFlight" variant="primary" />
@@ -166,10 +168,7 @@ function ScreenshotMarquee() {
     }
 
     const handleWheel = (event: WheelEvent) => {
-      const dominantDelta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY
-
-      if (dominantDelta === 0) return
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return
 
       event.preventDefault()
       const scale = event.deltaMode === WheelEvent.DOM_DELTA_LINE
@@ -177,7 +176,7 @@ function ScreenshotMarquee() {
         : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
           ? marquee.clientWidth
           : 1
-      setLoopedScroll(marquee.scrollLeft + dominantDelta * scale)
+      setLoopedScroll(marquee.scrollLeft + event.deltaX * scale)
     }
 
     const pause = () => {
