@@ -133,8 +133,8 @@ h1 {
 }
 
 .hero > p {
-  width: min(680px, 100%);
-  max-width: 680px;
+  width: min(600px, 100%);
+  max-width: 600px;
   margin: 28px auto 0;
   color: var(--color-muted);
   font-size: clamp(17px, 2.2vw, 20px);
