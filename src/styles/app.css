@@ -133,18 +133,20 @@ h1 {
 }
 
 .hero > p {
+  width: min(680px, 100%);
   max-width: 680px;
   margin: 28px auto 0;
   color: var(--color-muted);
   font-size: clamp(17px, 2.2vw, 20px);
   line-height: 1.65;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .actions {
   display: flex;
+  width: min(680px, 100%);
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 36px;
 }
