@@ -26,11 +26,6 @@ const screenshots = [
     alt: 'Book search results in Tomeio on a phone',
   },
   {
-    src: '20260827-161922.webp',
-    device: 'tablet',
-    alt: 'Book details and download options in Tomeio on a tablet',
-  },
-  {
     src: '20260827-170503.webp',
     device: 'phone',
     alt: 'A book in the Tomeio library on a phone',
