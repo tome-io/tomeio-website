@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { SiteFooter } from '../components/legal-page'
 
 const screenshots = [
   '20260827-161538.webp',
@@ -81,6 +82,7 @@ function HomePage() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </main>
   )
 }

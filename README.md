@@ -2,6 +2,8 @@
 
 The lightweight landing page for Tomeio, built with the same TanStack Start, React, Vite, Tailwind CSS, Bun, and Cloudflare Workers stack as the Finchy website.
 
+The project requires Bun 1.4.x because its text lockfile uses lockfile version 2.
+
 ## Development
 
 ```sh
