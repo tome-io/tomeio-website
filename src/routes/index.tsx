@@ -2,21 +2,76 @@ import { createFileRoute } from '@tanstack/react-router'
 import { SiteFooter } from '../components/legal-page'
 
 const screenshots = [
-  '20260827-161538.webp',
-  '20260827-161546.webp',
-  '20260827-161643.webp',
-  '20260827-161910.webp',
-  '20260827-161922.webp',
-  '20260827-161943.webp',
-  '20260827-162051.webp',
-  '20260827-162055.webp',
-  '20260827-170345.webp',
-  '20260827-170446.webp',
-  '20260827-170503.webp',
-  '20260827-170525.webp',
-  '20260827-170532.webp',
-  '20260827-170540.webp',
-  '20260827-170556.webp',
+  {
+    src: '20260827-161546.webp',
+    device: 'tablet',
+    alt: 'Tomeio discovery shelves on a tablet',
+  },
+  {
+    src: '20260827-170345.webp',
+    device: 'phone',
+    alt: 'Tomeio discovery shelves on a phone',
+  },
+  {
+    src: '20260827-161643.webp',
+    device: 'tablet',
+    alt: 'Book search results in Tomeio on a tablet',
+  },
+  {
+    src: '20260827-170525.webp',
+    device: 'phone',
+    alt: 'Book search results in Tomeio on a phone',
+  },
+  {
+    src: '20260827-161922.webp',
+    device: 'tablet',
+    alt: 'Book details and download options in Tomeio on a tablet',
+  },
+  {
+    src: '20260827-170503.webp',
+    device: 'phone',
+    alt: 'A book in the Tomeio library on a phone',
+  },
+  {
+    src: '20260827-161943.webp',
+    device: 'tablet',
+    alt: 'Trending books in Tomeio on a tablet',
+  },
+  {
+    src: '20260827-170556.webp',
+    device: 'phone',
+    alt: 'Trending books in Tomeio on a phone',
+  },
+  {
+    src: '20260827-162055.webp',
+    device: 'tablet',
+    alt: 'The Tomeio library on a tablet',
+  },
+  {
+    src: '20260827-170446.webp',
+    device: 'phone',
+    alt: 'The Tomeio library on a phone',
+  },
+  {
+    src: '20260827-162051.webp',
+    device: 'tablet',
+    alt: 'Library sorting options in Tomeio on a tablet',
+  },
+  {
+    src: '20260827-170540.webp',
+    device: 'phone',
+    alt: 'Tomeio settings on a phone',
+  },
+  {
+    src: '20260827-161538.webp',
+    device: 'tablet',
+    alt: 'Tomeio add-ons on a tablet',
+  },
+  {
+    src: '20260827-170532.webp',
+    device: 'phone',
+    alt: 'Tomeio add-ons on a phone',
+  },
 ] as const
 
 const destinations = {
@@ -70,11 +125,12 @@ function HomePage() {
               <div className="marquee-group" aria-hidden={group === 1} key={group}>
                 {screenshots.map((screenshot, index) => (
                   <img
-                    src={`/screenshots/${screenshot}`}
-                    alt={group === 0 ? `Tomeio app screenshot ${index + 1}` : ''}
+                    className={`screenshot screenshot-${screenshot.device}`}
+                    src={`/screenshots/${screenshot.src}`}
+                    alt={group === 0 ? screenshot.alt : ''}
                     loading={index < 3 && group === 0 ? 'eager' : 'lazy'}
                     decoding="async"
-                    key={screenshot}
+                    key={screenshot.src}
                   />
                 ))}
               </div>

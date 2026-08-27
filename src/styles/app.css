@@ -231,15 +231,22 @@ h1 {
   gap: 24px;
 }
 
-.marquee img {
+.marquee .screenshot {
   display: block;
   width: auto;
-  height: clamp(360px, 52vw, 620px);
   border: 1px solid rgb(255 242 207 / 13%);
   border-radius: 26px;
   background: var(--color-surface);
   box-shadow: 0 28px 70px rgb(0 0 0 / 38%);
   object-fit: contain;
+}
+
+.marquee .screenshot-tablet {
+  height: clamp(300px, 34vw, 460px);
+}
+
+.marquee .screenshot-phone {
+  height: clamp(390px, 48vw, 620px);
 }
 
 .site-footer {
@@ -433,9 +440,16 @@ h1 {
     gap: 16px;
   }
 
-  .marquee img {
-    height: 430px;
+  .marquee .screenshot {
     border-radius: 20px;
+  }
+
+  .marquee .screenshot-tablet {
+    height: 260px;
+  }
+
+  .marquee .screenshot-phone {
+    height: 430px;
   }
 }
 
