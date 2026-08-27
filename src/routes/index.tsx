@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useCallback, useEffect, useRef } from 'react'
+import type { KeyboardEvent, PointerEvent } from 'react'
 import { SiteFooter } from '../components/legal-page'
 
 const screenshots = [
@@ -119,27 +121,173 @@ function HomePage() {
       </section>
 
       <section className="showcase" aria-label="Tomeio app screenshots">
-        <div className="marquee">
-          <div className="marquee-track">
-            {[0, 1].map((group) => (
-              <div className="marquee-group" aria-hidden={group === 1} key={group}>
-                {screenshots.map((screenshot, index) => (
-                  <img
-                    className={`screenshot screenshot-${screenshot.device}`}
-                    src={`/screenshots/${screenshot.src}`}
-                    alt={group === 0 ? screenshot.alt : ''}
-                    loading={index < 3 && group === 0 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    key={screenshot.src}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
+        <ScreenshotMarquee />
       </section>
       <SiteFooter />
     </main>
+  )
+}
+
+function ScreenshotMarquee() {
+  const marqueeRef = useRef<HTMLDivElement>(null)
+  const loopWidthRef = useRef(0)
+  const pausedRef = useRef(false)
+  const draggingRef = useRef({ active: false, pointerId: -1, startX: 0, startScroll: 0 })
+
+  const setLoopedScroll = useCallback((nextScroll: number) => {
+    const marquee = marqueeRef.current
+    const loopWidth = loopWidthRef.current
+
+    if (!marquee || loopWidth <= 0) return
+
+    marquee.scrollLeft = ((nextScroll % loopWidth) + loopWidth) % loopWidth
+  }, [])
+
+  useEffect(() => {
+    const marquee = marqueeRef.current
+    const track = marquee?.querySelector<HTMLElement>('.marquee-track')
+    const firstGroup = track?.querySelector<HTMLElement>('.marquee-group')
+
+    if (!marquee || !track || !firstGroup) return
+
+    const updateLoopWidth = () => {
+      const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0
+      loopWidthRef.current = firstGroup.getBoundingClientRect().width + gap
+    }
+
+    updateLoopWidth()
+    const resizeObserver = new ResizeObserver(updateLoopWidth)
+    resizeObserver.observe(firstGroup)
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let previousFrame = performance.now()
+    let animationFrame = 0
+
+    const animate = (frame: number) => {
+      const elapsed = Math.min(frame - previousFrame, 50)
+      previousFrame = frame
+
+      if (!pausedRef.current && !reducedMotion.matches) {
+        setLoopedScroll(marquee.scrollLeft + elapsed * 0.045)
+      }
+
+      animationFrame = window.requestAnimationFrame(animate)
+    }
+
+    const handleWheel = (event: WheelEvent) => {
+      const dominantDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY
+
+      if (dominantDelta === 0) return
+
+      event.preventDefault()
+      const scale = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+        ? 16
+        : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+          ? marquee.clientWidth
+          : 1
+      setLoopedScroll(marquee.scrollLeft + dominantDelta * scale)
+    }
+
+    const pause = () => {
+      pausedRef.current = true
+    }
+
+    const resume = () => {
+      if (!draggingRef.current.active) pausedRef.current = false
+    }
+
+    marquee.addEventListener('wheel', handleWheel, { passive: false })
+    marquee.addEventListener('mouseenter', pause)
+    marquee.addEventListener('mouseleave', resume)
+    animationFrame = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      resizeObserver.disconnect()
+      marquee.removeEventListener('wheel', handleWheel)
+      marquee.removeEventListener('mouseenter', pause)
+      marquee.removeEventListener('mouseleave', resume)
+    }
+  }, [setLoopedScroll])
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+
+    const marquee = event.currentTarget
+    draggingRef.current = {
+      active: true,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScroll: marquee.scrollLeft,
+    }
+    pausedRef.current = true
+    marquee.setPointerCapture(event.pointerId)
+    marquee.classList.add('is-dragging')
+  }
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = draggingRef.current
+
+    if (!drag.active || drag.pointerId !== event.pointerId) return
+
+    event.preventDefault()
+    setLoopedScroll(drag.startScroll + drag.startX - event.clientX)
+  }
+
+  const endPointerDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const marquee = event.currentTarget
+
+    if (!draggingRef.current.active || draggingRef.current.pointerId !== event.pointerId) return
+
+    draggingRef.current.active = false
+    marquee.classList.remove('is-dragging')
+    if (marquee.hasPointerCapture(event.pointerId)) marquee.releasePointerCapture(event.pointerId)
+    pausedRef.current = marquee.matches(':hover')
+  }
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+
+    event.preventDefault()
+    setLoopedScroll(
+      (marqueeRef.current?.scrollLeft ?? 0) + (event.key === 'ArrowLeft' ? -180 : 180),
+    )
+  }
+
+  return (
+    <div
+      className="marquee"
+      ref={marqueeRef}
+      role="region"
+      tabIndex={0}
+      aria-label="Tomeio screenshots. Scroll or drag to browse."
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={endPointerDrag}
+      onPointerCancel={endPointerDrag}
+      onKeyDown={handleKeyDown}
+    >
+      <div className="marquee-track">
+        {[0, 1].map((group) => (
+          <div className="marquee-group" aria-hidden={group === 1} key={group}>
+            {screenshots.map((screenshot, index) => (
+              <img
+                className="screenshot"
+                src={`/screenshots/${screenshot.src}`}
+                alt={group === 0 ? screenshot.alt : ''}
+                width={screenshot.device === 'tablet' ? 2560 : 1080}
+                height={screenshot.device === 'tablet' ? 1600 : 2400}
+                loading={index < 3 && group === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable={false}
+                key={screenshot.src}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 
