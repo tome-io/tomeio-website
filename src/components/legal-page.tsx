@@ -34,7 +34,17 @@ export function LegalPage({ title, description, updated, children }: LegalPagePr
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <span>© 2026 Tomeio</span>
+      <div className="site-footer-meta">
+        <span>© 2026 Tomeio</span>
+        <a
+          href="https://lukestephens.co.za"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Created with love by Luke"
+        >
+          Created with ❤️ by Luke
+        </a>
+      </div>
       <nav aria-label="Legal">
         <a href="/android-beta">Android beta</a>
         <a href="/privacy">Privacy</a>
