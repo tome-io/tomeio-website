@@ -73,7 +73,7 @@ const screenshots = [
 ] as const
 
 const destinations = {
-  testflight: import.meta.env.VITE_TESTFLIGHT_URL,
+  testflight: import.meta.env.VITE_TESTFLIGHT_URL || 'https://testflight.apple.com/join/wCETmTr6',
   google: import.meta.env.VITE_GOOGLE_BETA_URL || '/android-beta',
   discord: import.meta.env.VITE_DISCORD_URL || 'https://discord.gg/T9d5gQQaK4',
 }
