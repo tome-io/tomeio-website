@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useRef, useState } from 'react'
+import type { FormEvent } from 'react'
 import { SiteFooter } from '../components/legal-page'
 import { seo } from '../lib/seo'
 
@@ -16,6 +18,18 @@ export const Route = createFileRoute('/android-beta')({
 
 function AndroidBetaPage() {
   const { submitted } = Route.useSearch()
+  const submissionStartedRef = useRef(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    if (submissionStartedRef.current) {
+      event.preventDefault()
+      return
+    }
+
+    submissionStartedRef.current = true
+    setIsSubmitting(true)
+  }
 
   return (
     <main className="beta-main">
@@ -47,6 +61,7 @@ function AndroidBetaPage() {
             className="beta-form"
             action="https://formsubmit.co/contact@tomeio.app"
             method="post"
+            onSubmit={handleSubmit}
           >
             <input type="hidden" name="_subject" value="New Tomeio Android beta request" />
             <input type="hidden" name="_template" value="table" />
@@ -89,8 +104,12 @@ function AndroidBetaPage() {
               <a href="/privacy">Privacy Policy</a>.
             </p>
 
-            <button className="button button-primary beta-submit" type="submit">
-              Request beta access
+            <button
+              className="button button-primary beta-submit"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending request…' : 'Request beta access'}
             </button>
           </form>
         )}

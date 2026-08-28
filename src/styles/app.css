@@ -500,6 +500,12 @@ h1 {
   font-family: inherit;
 }
 
+.beta-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
 .beta-honeypot {
   position: absolute !important;
   left: -10000px !important;
