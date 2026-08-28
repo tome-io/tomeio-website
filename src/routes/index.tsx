@@ -75,7 +75,7 @@ const screenshots = [
 const destinations = {
   testflight: import.meta.env.VITE_TESTFLIGHT_URL,
   google: import.meta.env.VITE_GOOGLE_BETA_URL,
-  discord: import.meta.env.VITE_DISCORD_URL,
+  discord: import.meta.env.VITE_DISCORD_URL || 'https://discord.gg/T9d5gQQaK4',
 }
 
 export const Route = createFileRoute('/')({
