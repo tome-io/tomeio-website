@@ -36,6 +36,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <span>© 2026 Tomeio</span>
       <nav aria-label="Legal">
+        <a href="/android-beta">Android beta</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
         <a href="https://github.com/tome-io/core" target="_blank" rel="noopener noreferrer">

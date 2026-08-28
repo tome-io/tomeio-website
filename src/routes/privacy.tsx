@@ -16,7 +16,7 @@ function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       description="Tomeio is designed to work without an account or a Tomeio-operated backend. Your library remains under your control."
-      updated="27 August 2026"
+      updated="28 August 2026"
     >
       <section>
         <h2>1. Scope</h2>
@@ -114,6 +114,13 @@ function PrivacyPage() {
           requested page, and request time, to deliver and protect the website. That processing is
           governed by the hosting provider’s own privacy terms.
         </p>
+        <p>
+          If you request Android beta access, we receive the full name, Google Play email address,
+          and optional message you submit. We use this information only to add testers, manage beta
+          access, provide related support, and contact participants. FormSubmit processes the form
+          on our behalf and forwards the submission to our email provider. Those services may also
+          process ordinary connection and delivery information under their own privacy terms.
+        </p>
       </section>
 
       <section>
@@ -123,6 +130,11 @@ function PrivacyPage() {
           profile to request or delete. You control data stored on your device and in folders you
           select. You can remove books, reading-list entries, progress records, extensions, and
           folder connections from the app where those controls are available.
+        </p>
+        <p>
+          We keep Android beta requests only while they are needed to manage beta access and
+          related support. You may ask us to correct or delete your request by emailing
+          <a href="mailto:contact@tomeio.app"> contact@tomeio.app</a>.
         </p>
         <p>
           Uninstalling Tomeio generally removes its app-private database and settings. Files saved
@@ -161,7 +173,9 @@ function PrivacyPage() {
           version and its effective date will remain available on this page.
         </p>
         <p>
-          For a privacy question, open an issue in the
+          For a private privacy question or request, email
+          <a href="mailto:contact@tomeio.app"> contact@tomeio.app</a>. For a public product issue,
+          use the
           <a href="https://github.com/tome-io/core/issues/new" target="_blank" rel="noopener noreferrer"> Tomeio core repository</a>.
           Do not include passwords, access tokens, book files, or other sensitive information in a
           public issue.

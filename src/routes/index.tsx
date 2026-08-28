@@ -74,7 +74,7 @@ const screenshots = [
 
 const destinations = {
   testflight: import.meta.env.VITE_TESTFLIGHT_URL,
-  google: import.meta.env.VITE_GOOGLE_BETA_URL,
+  google: import.meta.env.VITE_GOOGLE_BETA_URL || '/android-beta',
   discord: import.meta.env.VITE_DISCORD_URL || 'https://discord.gg/T9d5gQQaK4',
 }
 
@@ -287,8 +287,15 @@ function DestinationLink({ href, label, variant }: { href?: string; label: strin
     )
   }
 
+  const external = href.startsWith('http://') || href.startsWith('https://')
+
   return (
-    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
+    <a
+      className={className}
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
       {label}
     </a>
   )
