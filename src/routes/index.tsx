@@ -378,17 +378,18 @@ function SyncEngine() {
   return (
     <section id="sync" className="sync-engine" aria-labelledby="sync-engine-title">
       <header className="sync-engine-intro">
-        <h2 id="sync-engine-title">Your reading, in step.</h2>
+        <h2 id="sync-engine-title">Your reading, in sync.</h2>
         <p>
           Tomeio keeps your library, reading list, and progress aligned across iOS and Android.
-          KOReader joins through KOSync, while Moon+ Reader uses its built-in WebDAV progress sync.
+          KOReader and Moon+ Reader each exchange progress with Tomeio through KOSync and built-in
+          WebDAV, while Kobo eReaders join through built-in sync for library and progress.
         </p>
       </header>
 
       <div
         className="sync-engine-visual"
         role="img"
-        aria-label="Tomeio Sync connects Tomeio on iOS and Android with KOReader and Moon+ Reader. Library and reading-list changes flow between Tomeio devices, while reading progress flows between every connected reader."
+        aria-label="Tomeio Sync connects Tomeio on iOS and Android with KOReader, Moon+ Reader, and Kobo. Library changes flow between Tomeio devices and Kobo, reading-list changes flow between Tomeio devices, and each reader exchanges reading progress with Tomeio Sync."
       >
         <div className="sync-engine-grid" aria-hidden="true" />
         <svg
@@ -403,10 +404,63 @@ function SyncEngine() {
               <stop offset="0.45" stopColor="#ff6a00" />
               <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
             </linearGradient>
+            <linearGradient
+              id="sync-progress-gradient-kobo-desktop"
+              gradientUnits="userSpaceOnUse"
+              x1="180"
+              y1="280"
+              x2="405"
+              y2="280"
+            >
+              <stop offset="0" stopColor="#ff6a00" stopOpacity="0" />
+              <stop offset="0.45" stopColor="#ff6a00" />
+              <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="sync-progress-gradient-kobo-mobile"
+              gradientUnits="userSpaceOnUse"
+              x1="500"
+              y1="67"
+              x2="500"
+              y2="228"
+            >
+              <stop offset="0" stopColor="#ff6a00" stopOpacity="0" />
+              <stop offset="0.45" stopColor="#ff6a00" />
+              <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
+            </linearGradient>
             <linearGradient id="sync-library-gradient" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" stopColor="#fff2cf" stopOpacity="0" />
               <stop offset="0.5" stopColor="#fff2cf" />
               <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="sync-library-gradient-kobo-desktop"
+              gradientUnits="userSpaceOnUse"
+              x1="180"
+              y1="280"
+              x2="405"
+              y2="280"
+            >
+              <stop offset="0" stopColor="#fff2cf" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#fff2cf" />
+              <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="sync-library-gradient-kobo-mobile"
+              gradientUnits="userSpaceOnUse"
+              x1="500"
+              y1="67"
+              x2="500"
+              y2="228"
+            >
+              <stop offset="0" stopColor="#fff2cf" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#fff2cf" />
+              <stop offset="1" stopColor="#ffc21c" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="sync-reading-list-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#fff2cf" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#fff2cf" />
+              <stop offset="1" stopColor="#fff2cf" stopOpacity="0" />
             </linearGradient>
             <filter id="sync-beam-glow" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="3" result="blur" />
@@ -418,28 +472,45 @@ function SyncEngine() {
           </defs>
 
           <g className="sync-paths">
-            <path d="M 180 130 C 300 140 340 225 405 258" />
-            <path d="M 820 130 C 700 140 660 225 595 258" />
+            <path d="M 180 157 C 300 165 340 225 405 258" />
+            <path d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-kobo-desktop" d="M 180 280 C 300 280 340 280 405 280" />
+            <path className="sync-kobo-mobile" d="M 500 67 C 500 130 500 190 500 228" />
             <path d="M 180 430 C 300 420 340 335 405 302" />
             <path d="M 820 430 C 700 420 660 335 595 302" />
           </g>
 
           <g className="sync-progress-beams" filter="url(#sync-beam-glow)">
-            <path className="sync-beam sync-beam-one" pathLength="1" d="M 180 130 C 300 140 340 225 405 258" />
-            <path className="sync-beam sync-beam-two" pathLength="1" d="M 820 130 C 700 140 660 225 595 258" />
-            <path className="sync-beam sync-beam-three" pathLength="1" d="M 180 430 C 300 420 340 335 405 302" />
-            <path className="sync-beam sync-beam-four" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
-            <path className="sync-beam sync-beam-one sync-beam-reverse" pathLength="1" d="M 180 130 C 300 140 340 225 405 258" />
-            <path className="sync-beam sync-beam-two sync-beam-reverse" pathLength="1" d="M 820 130 C 700 140 660 225 595 258" />
-            <path className="sync-beam sync-beam-three sync-beam-reverse" pathLength="1" d="M 180 430 C 300 420 340 335 405 302" />
-            <path className="sync-beam sync-beam-four sync-beam-reverse" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+            <path className="sync-beam sync-beam-one" pathLength="1" d="M 180 157 C 300 165 340 225 405 258" />
+            <path className="sync-beam sync-beam-two" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-beam sync-beam-three sync-kobo-desktop" pathLength="1" d="M 180 280 C 300 280 340 280 405 280" />
+            <path className="sync-beam sync-beam-three sync-kobo-mobile" pathLength="1" d="M 500 67 C 500 130 500 190 500 228" />
+            <path className="sync-beam sync-beam-four" pathLength="1" d="M 180 430 C 300 420 340 335 405 302" />
+            <path className="sync-beam sync-beam-five" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+            <path className="sync-beam sync-beam-one sync-beam-reverse" pathLength="1" d="M 180 157 C 300 165 340 225 405 258" />
+            <path className="sync-beam sync-beam-two sync-beam-reverse" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-beam sync-beam-three sync-beam-reverse sync-kobo-desktop" pathLength="1" d="M 180 280 C 300 280 340 280 405 280" />
+            <path className="sync-beam sync-beam-three sync-beam-reverse sync-kobo-mobile" pathLength="1" d="M 500 67 C 500 130 500 190 500 228" />
+            <path className="sync-beam sync-beam-four sync-beam-reverse" pathLength="1" d="M 180 430 C 300 420 340 335 405 302" />
+            <path className="sync-beam sync-beam-five sync-beam-reverse" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
           </g>
 
           <g className="sync-library-beams" filter="url(#sync-beam-glow)">
-            <path pathLength="1" d="M 820 130 C 700 140 660 225 595 258" />
-            <path pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
-            <path className="sync-library-reverse" pathLength="1" d="M 820 130 C 700 140 660 225 595 258" />
-            <path className="sync-library-reverse" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+            <path className="sync-library-one" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-library-two sync-kobo-desktop" pathLength="1" d="M 180 280 C 300 280 340 280 405 280" />
+            <path className="sync-library-two sync-kobo-mobile" pathLength="1" d="M 500 67 C 500 130 500 190 500 228" />
+            <path className="sync-library-three" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+            <path className="sync-library-one sync-library-reverse" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-library-two sync-library-reverse sync-kobo-desktop" pathLength="1" d="M 180 280 C 300 280 340 280 405 280" />
+            <path className="sync-library-two sync-library-reverse sync-kobo-mobile" pathLength="1" d="M 500 67 C 500 130 500 190 500 228" />
+            <path className="sync-library-three sync-library-reverse" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+          </g>
+
+          <g className="sync-reading-list-beams" filter="url(#sync-beam-glow)">
+            <path className="sync-reading-list-one" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-reading-list-two" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
+            <path className="sync-reading-list-one sync-reading-list-reverse" pathLength="1" d="M 820 157 C 700 165 660 225 595 258" />
+            <path className="sync-reading-list-two sync-reading-list-reverse" pathLength="1" d="M 820 430 C 700 420 660 335 595 302" />
           </g>
         </svg>
 
@@ -452,6 +523,11 @@ function SyncEngine() {
           className="sync-node-android"
           icon="android"
           name="Tomeio for Android"
+        />
+        <SyncNode
+          className="sync-node-kobo"
+          icon="kobo"
+          name="Kobo eReader"
         />
         <SyncNode
           className="sync-node-moonreader"
@@ -475,7 +551,8 @@ function SyncEngine() {
       <div className="sync-engine-footer">
         <div className="sync-engine-legend" aria-label="Diagram legend">
           <span><i className="sync-legend-progress" />Reading progress</span>
-          <span><i className="sync-legend-library" />Library + reading list</span>
+          <span><i className="sync-legend-library" />Library</span>
+          <span><i className="sync-legend-reading-list" />Reading list</span>
         </div>
         <p>Book files stay on your devices.</p>
       </div>
@@ -489,7 +566,7 @@ function SyncNode({
   name,
 }: {
   className: string
-  icon: 'android' | 'ios' | 'koreader' | 'moon-reader'
+  icon: 'android' | 'ios' | 'kobo' | 'koreader' | 'moon-reader'
   name: string
 }) {
   return (
@@ -504,13 +581,22 @@ function SyncNode({
   )
 }
 
-function SyncNodeIcon({ name }: { name: 'android' | 'ios' | 'koreader' | 'moon-reader' }) {
+function SyncNodeIcon({ name }: { name: 'android' | 'ios' | 'kobo' | 'koreader' | 'moon-reader' }) {
   if (name === 'koreader') {
     return <img src="/sync-icons/koreader.png" alt="" width={34} height={34} />
   }
 
   if (name === 'moon-reader') {
     return <img src="/community-extensions/moon-reader.webp" alt="" width={34} height={34} />
+  }
+
+  if (name === 'kobo') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" />
+        <path className="sync-kobo-letter" d="M7.5 5.5h3v5.2l4.6-5.2h3.7l-5.2 5.8 5.6 7.2h-3.8l-3.9-5.2-1 1.1v4.1h-3Z" />
+      </svg>
+    )
   }
 
   if (name === 'android') {
