@@ -12,7 +12,7 @@ cp .env.example .env.local
 bun run dev
 ```
 
-Set the TestFlight and Discord destinations in `.env.local`. The Google beta button defaults to the website's `/android-beta` signup form; `VITE_GOOGLE_BETA_URL` can override it with a direct external destination.
+Set the TestFlight, Discord, community extensions, and Add-on SDK destinations in `.env.local`. The Google beta button defaults to the website's `/android-beta` signup form; `VITE_GOOGLE_BETA_URL` can override it with a direct external destination.
 
 ## Build and deploy
 
