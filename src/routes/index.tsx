@@ -100,7 +100,7 @@ const faqs = [
   {
     question: 'What can I do with Tomeio?',
     answer:
-      'Discover books across open and extensible sources, save what you want to read, and keep downloaded or local books together in one library.',
+      'Discover, download, organize, and read EPUB and PDF books inside Tomeio, with customizable reading controls and synchronized progress.',
   },
   {
     question: 'Which platforms does Tomeio support?',
@@ -115,12 +115,12 @@ const faqs = [
   {
     question: 'Can Tomeio keep my reading in sync?',
     answer:
-      'Yes. Optional hosted sync can align your Tomeio library, reading list, and progress across iOS and Android. KOReader can join through KOSync, while Moon+ Reader can share reading progress through WebDAV.',
+      'Yes. Optional Tomeio Sync keeps your library, reading list, and furthest reading position aligned across signed-in iOS and Android devices. Supported progress also syncs with KOReader, Moon+ Reader, and Kobo eReaders.',
   },
   {
     question: 'Do my book files get uploaded to Tomeio Sync?',
     answer:
-      'No. Your book files stay on your devices. Tomeio Sync coordinates the library state, reading list, and supported reading progress needed to keep your readers aligned.',
+      'No. Tomeio Sync never stores your EPUB or PDF files. Files remain in the storage locations you choose and must be available locally before they can be opened.',
   },
   {
     question: 'Can the community add new sources and reading tools?',
