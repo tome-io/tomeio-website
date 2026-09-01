@@ -49,10 +49,27 @@ const featureSlides = [
 ] as const
 
 const providers = [
-  { name: 'Open Library', logo: '/providers/open-library.png' },
-  { name: 'Project Gutenberg', logo: '/providers/project-gutenberg.png' },
-  { name: 'Google Drive', logo: '/providers/google-drive.svg' },
-  { name: 'iCloud', logo: '/providers/icloud.png' },
+  {
+    name: 'Open Library',
+    logo: '/providers/open-library.png',
+    href: 'https://openlibrary.org/',
+  },
+  {
+    name: 'Project Gutenberg',
+    logo: '/providers/project-gutenberg.png',
+    href: 'https://www.gutenberg.org/',
+  },
+  {
+    name: 'Google Drive',
+    logo: '/providers/google-drive.svg',
+    href: 'https://workspace.google.com/products/drive/',
+  },
+  { name: 'iCloud', logo: '/providers/icloud.png', href: 'https://www.icloud.com/' },
+  {
+    name: 'Readium React',
+    logo: '/providers/readium-react.jpg',
+    href: 'https://github.com/5-stones/react-native-readium',
+  },
 ] as const
 
 const communityExtensions = [
@@ -357,15 +374,23 @@ function FeatureHub() {
         <p>Powered by</p>
         <ul className="powered-by-logos" role="list">
           {providers.map((provider) => (
-            <li aria-label={provider.name} title={provider.name} key={provider.name}>
-              <img
-                src={provider.logo}
-                alt=""
-                width={56}
-                height={56}
-                loading="lazy"
-                decoding="async"
-              />
+            <li key={provider.name}>
+              <a
+                href={provider.href}
+                aria-label={provider.name}
+                title={provider.name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={provider.logo}
+                  alt=""
+                  width={56}
+                  height={56}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
             </li>
           ))}
         </ul>
