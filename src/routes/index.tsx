@@ -87,6 +87,13 @@ const communityExtensions = [
     description:
       'Open local books in Moon+ Reader and import books, reading progress, and statistics from an existing Moon+ backup.',
   },
+  {
+    name: 'Kobo eReader',
+    logo: '/community-extensions/kobo.png',
+    path: 'community/kobo',
+    description:
+      'Connect a Kobo eReader to Tomeio Sync for EPUB library metadata and reading progress.',
+  },
 ] as const
 
 const faqs = [

@@ -5,6 +5,7 @@ the `tome-io/extensions` repository:
 
 - `hardcover.png` — Hardcover standalone logo from `hardcoverapp/static-assets`
 - `moon-reader.webp` — Moon+ Reader Google Play listing icon
+- `kobo.png` — Kobo eReader icon declared by the reviewed Kobo extension manifest and hosted by Kobo
 
 The Moon+ Reader image is served as WebP and retains that format locally. The Hardcover source
 image was resized to fit within 512 pixels for the website.
